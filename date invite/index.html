@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajakin Jalan - Premium Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <div class="bloom-flash" id="bloomFlash"></div>
+
+  <div class="phone">
+    <div class="progress" id="progress"></div>
+
+    <div class="screen active" id="s-envelope">
+      <div class="eyebrow">Invite Date</div>
+      <div class="ribbon-wrap">
+        <span class="sub" style="margin-top:0;">buat</span>
+        <input class="name-input" id="recipientName" placeholder="nama dia..." value="Nailah Hanaa">
+      </div>
+      <div class="envelope" id="envelope" onclick="openEnvelope()">
+        <div class="env-back"></div>
+        <div class="env-heart"></div>
+        <div class="bouquet">💐</div>
+        <div class="env-flap"></div>
+      </div>
+      <div class="tap-hint">ketuk amplopnya buat buka ✉️</div>
+    </div>
+
+    <div class="screen" id="s-ask">
+      <div class="polaroid">
+        <div class="frame"><img src="assets/img/foto1.jpg" alt="foto"></div>
+        <span class="cap" id="polaroidCap">for you</span>
+      </div>
+      <div class="headline" id="askHeadline">mau jalan bareng aku gak?</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goTo('s-date')">mauuu</button>
+        <button class="btn btn-ghost" id="noBtn">gamau ah</button>
+      </div>
+    </div>
+
+    <div class="screen" id="s-date">
+      <div class="headline" style="font-size:32px;">kira-kira kamu free kapan?</div>
+      <div class="field-label">tanggal</div>
+      <input type="date" class="field" id="dateInput">
+      
+      <div class="field-label">waktu</div>
+      <div class="chip-row" id="timeChips">
+        <div class="chip" data-v="Pagi">Pagi</div>
+        <div class="chip" data-v="Siang">Siang</div>
+        <div class="chip" data-v="Sore">Sore</div>
+        <div class="chip" data-v="Malam">Malam</div>
+      </div>
+      
+      <div class="field-label">jam kira-kira</div>
+      <input type="time" class="field" id="clockInput">
+      <button class="btn btn-primary" style="width:100%; margin-top:22px;" onclick="confirmDate()">Lanjut</button>
+    </div>
+
+    <div class="screen" id="s-activity">
+      <div class="headline" style="font-size:30px;">kita jalannya ngapain?</div>
+      <div class="sub">pilih satu ya, mantan 🤏</div>
+      <div class="act-grid" id="actGrid">
+        <div class="act-card" data-v="Naik Gunung"><div class="ic">⛰️</div><div class="lb">Naik Gunung</div></div>
+        <div class="act-card" data-v="Nonton Bioskop"><div class="ic">🎬</div><div class="lb">Nonton Bioskop</div></div>
+        <div class="act-card" data-v="Ke Bandung"><div class="ic">🚗</div><div class="lb">Ke Bandung</div></div>
+        <div class="act-card" data-v="Dinner"><div class="ic">🍽️</div><div class="lb">Dinner</div></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%; margin-top:24px;" onclick="confirmActivity()">Oke, itu aja</button>
+    </div>
+
+    <div class="screen" id="s-message">
+      <div class="headline" style="font-size:30px;">ada pesan buat aku?</div>
+      <div class="sub">opsional, boleh kosong...</div>
+      <textarea class="field" id="msgInput" placeholder="tulis sesuatu di sini..."></textarea>
+      <button class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="buildTicket()">Bikin tiketnya</button>
+    </div>
+
+    <div class="screen" id="s-ticket">
+      <div class="ticket" id="premiumTicket">
+        <div class="ticket-top">
+          <div class="ticket-eyebrow">Admit Two</div>
+          <div class="ticket-title">tiket jalan kita</div>
+        </div>
+        <div class="ticket-perf"></div>
+        <div class="ticket-dash"></div>
+        <div class="ticket-body">
+          <div class="ticket-row"><div class="k">Untuk</div><div class="v" id="tName">-</div></div>
+          <div class="ticket-row"><div class="k">Kapan</div><div class="v" id="tDate">-</div></div>
+          <div class="ticket-row"><div class="k">Acara</div><div class="v" id="tAct">-</div></div>
+          <div class="ticket-row"><div class="k">Pesan</div><div class="v ticket-note" id="tMsg">-</div></div>
+          <div class="ticket-from" id="tFrom">dari aku, buat kamu 💌</div>
+        </div>
+      </div>
+      <div class="action-row">
+        <button class="btn btn-primary" onclick="shareWA()">Chat WhatsApp</button>
+        <button class="btn btn-ghost" onclick="copyText()">Salin teks</button>
+      </div>
+      <div class="action-row" style="margin-top: 10px;">
+        <button class="btn btn-ghost" style="width: 100%; font-size: 13px;" onclick="downloadTicket()">Download Tiket (PNG) 📸</button>
+      </div>
+      <button class="restart" onclick="restart()">restart</button>
+    </div>
+  </div>
+
+  <div class="flower-shower-container" id="flowerShowerContainer"></div>
+  <div id="confettiContainer" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></div>
+  <div id="floatingHeartsContainer" style="position:fixed; inset:0; pointer-events:none; z-index:9998;"></div>
+  <div id="sparklesContainer" style="position:absolute; inset:0; pointer-events:none; z-index:2;"></div>
+  <div id="toastContainer" style="position:fixed; bottom:30px; left:50%; transform:translateX(-50%); z-index:10000; display:flex; flex-direction:column; gap:8px;"></div>
+  <div id="loadingOverlay" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center; z-index:10001; color:white; font-family:'Quicksand',sans-serif; font-size:18px;">Membuat tiket cantikmu... ✨</div>
+
+  <audio id="bgMusic" src="assets/music/lagu.mp3" loop></audio>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
